@@ -18,6 +18,6 @@ interface ProductsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertProducts(productsEntity: ProductsEntity)
 
-    @Query("SELECT * FROM products_table WHERE title and description LIKE :searchQuery")
-    fun searchDatabase(searchQuery: String): LiveData<List<ProductsEntity>>
+    @Query("SELECT * FROM products_table WHERE products LIKE '%' || :title || '%'")
+    fun searchDatabase(title: String): LiveData<List<ProductsEntity>>
 }

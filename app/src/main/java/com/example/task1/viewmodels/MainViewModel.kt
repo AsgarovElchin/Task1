@@ -32,10 +32,10 @@ class MainViewModel @Inject constructor(
         }
 
     fun getProducts() = viewModelScope.launch {
-        getRecipesSafeCall()
+        getProductsSafeCall()
     }
 
-    private suspend fun getRecipesSafeCall() {
+    private suspend fun getProductsSafeCall() {
         productsResponse.value = NetworkResult.Loading()
         val response = repository.remote.getProducts()
         productsResponse.value = handleProductsResponse(response)
