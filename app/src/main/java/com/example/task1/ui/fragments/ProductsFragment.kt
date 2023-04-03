@@ -1,5 +1,6 @@
 package com.example.task1.ui.fragments
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -34,10 +35,24 @@ class ProductsFragment : Fragment(), SearchView.OnQueryTextListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
         binding.syncBtn.setOnClickListener {
-            binding.syncBtn.visibility = View.INVISIBLE
             mainViewModel.getProducts()
+            binding.syncBtn.visibility = View.INVISIBLE
+
         }
+
+        mainViewModel.readProducts.observe(viewLifecycleOwner,{data->
+            if(data.isEmpty()){
+                binding.syncBtn.visibility = View.VISIBLE
+            }
+            else{
+                binding.syncBtn.visibility = View.INVISIBLE
+            }
+        })
+
+
         setupMenu()
         setupRecyclerView()
         mainViewModel.readProducts.observe(viewLifecycleOwner, { database ->
