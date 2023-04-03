@@ -22,6 +22,10 @@ class MainViewModel @Inject constructor(
     val readProducts: LiveData<List<ProductsEntity>> = repository.local.readProducts().asLiveData()
     private var productsResponse: MutableLiveData<NetworkResult<Products>> = MutableLiveData()
 
+    fun searchDatabase(searchQuery: String): LiveData<List<ProductsEntity>> {
+        return repository.local.searchDatabase(searchQuery)
+    }
+
     private fun insertProducts(productsEntity: ProductsEntity) =
         viewModelScope.launch(Dispatchers.IO) {
             repository.local.insertProducts(productsEntity)
