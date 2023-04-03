@@ -1,5 +1,6 @@
 package com.example.task1.data.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -16,4 +17,7 @@ interface ProductsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertProducts(productsEntity: ProductsEntity)
+
+    @Query("SELECT * FROM products_table WHERE title and description LIKE :searchQuery")
+    fun searchDatabase(searchQuery: String): LiveData<List<ProductsEntity>>
 }

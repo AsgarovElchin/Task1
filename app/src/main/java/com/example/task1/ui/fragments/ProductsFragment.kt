@@ -30,8 +30,8 @@ class ProductsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.syncBtn.setOnClickListener {
-            mainViewModel.getProducts()
             binding.syncBtn.visibility = View.INVISIBLE
+            mainViewModel.getProducts()
         }
         setupRecyclerView()
         mainViewModel.readProducts.observe(viewLifecycleOwner,{database->
