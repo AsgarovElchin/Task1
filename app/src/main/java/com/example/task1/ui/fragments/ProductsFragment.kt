@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.task1.R
 import com.example.task1.adapters.ProductsAdapter
 import com.example.task1.databinding.FragmentProductsBinding
+import com.example.task1.models.Products
 import com.example.task1.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -91,13 +92,15 @@ class ProductsFragment : Fragment(), SearchView.OnQueryTextListener {
     }
 
     private fun searchThroughDatabase(query: String) {
-        val searchQuery = "%$query%"
-        mainViewModel.searchDatabase(searchQuery).observe(this, Observer { list ->
-            list?.let {
-                Log.d("aloha","${it[0].products}")
-                mAdapter.setData(it[0].products)
+        mainViewModel.readProducts.observe(viewLifecycleOwner, { data ->
+            data?.let {
+                val items = it.map { it.products }
+                val products = items.flatMap { it.products } // Flatten the list of products
+                val filteredProducts = products.filter { it.title.contains(query) } // Filter by search query
+                mAdapter.setData(Products(0, filteredProducts, 0, filteredProducts.size))
             }
         })
+
     }
 }
 
