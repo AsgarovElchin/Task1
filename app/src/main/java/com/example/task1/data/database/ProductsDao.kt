@@ -1,4 +1,4 @@
-package com.example.task1.data
+package com.example.task1.data.database
 
 import androidx.room.Dao
 import androidx.room.Insert
