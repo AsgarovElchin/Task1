@@ -1,4 +1,7 @@
 package com.example.task1.adapters.viewholders
 
-class ProductsViewHolder {
+import androidx.recyclerview.widget.RecyclerView
+
+class ProductsViewHolder() {
+
 }
