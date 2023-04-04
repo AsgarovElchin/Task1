@@ -111,7 +111,7 @@ class ProductsFragment : Fragment(), SearchView.OnQueryTextListener {
             data?.let {
                 val items = it.map { it.products }
                 val products = items.flatMap { it.products } // Flatten the list of products
-                val filteredProducts = products.filter { it.title.contains(query) or it.description.contains(query)} // Filter by search query
+                val filteredProducts = products.filter { it.title.toLowerCase().contains(query.toLowerCase()) or it.description.toLowerCase().contains(query.toLowerCase())} // Filter by search query
                 mAdapter.setData(Products(0, filteredProducts, 0, filteredProducts.size))
             }
         })
